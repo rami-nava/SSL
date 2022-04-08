@@ -1,11 +1,11 @@
 # SSL
-    #Alumno: Ramiro Navarro
+#Alumno: Ramiro Navarro 
 
-    #Legajo: 1762540
+#Legajo: 1762540
 
-    #Curso: K2051
-    
-    #Profesor: Jose Maria Sola
+#Curso: K2051
+
+#Profesor: Jose Maria Sola
     
     
     
