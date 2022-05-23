@@ -3,9 +3,7 @@ run: TablasDeConversion
 
 test: ConversionTest
 	./ConversionTest
-	rm ConversionTest
-	rm ConversionTest.o
-	rm Conversion.o
+
 	
 TablasDeConversion: TablasDeConversion.o Conversion.o 
 	gcc TablasDeConversion.o Conversion.o -o TablasDeConversion
@@ -28,3 +26,7 @@ clean:
 	rm TablasDeConversion.o
 	rm Conversion.o
 
+cleanTest:
+	rm ConversionTest
+	rm ConversionTest.o
+	rm Conversion.o
