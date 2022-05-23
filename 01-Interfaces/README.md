@@ -1,6 +1,6 @@
 #TP 1: Interaces y Makefile
 
-#Integrantes: Ramiro Navarro
+#Integrantes: Ramiro Navarro (github: rami-nava, Legajo: 1762540)
 
 #Objetivos: 
 
