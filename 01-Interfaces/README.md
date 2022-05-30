@@ -15,7 +15,7 @@
 
     • Aplicar el uso de Makefile.
 
-Compilador:
+#Compilador:
 
     • Version de compilador utilizada: gcc 11.2.0
 
