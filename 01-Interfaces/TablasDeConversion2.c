@@ -9,11 +9,11 @@ void printFilasFahrenheit(const int,const int,const int);
 void printFilaCelsius (int);
 void printFilaFahrenheit (int);
 
-int main (void){
     const int LOWER = 0;
     const int UPPER = 300;
     const int STEP = 20;    
 
+int main (void){
     printTablas (LOWER,UPPER,STEP);
 }
 
@@ -43,9 +43,9 @@ void printFilasFahrenheit(const int LOWER,const int UPPER,const int STEP){
 }
 
 void printFilaCelsius(int temp){
-    printf ("%14d °C = %5.1f °F\n",temp,GetFahrFromCels (temp));
+    printf ("%14d °C = %5.1f °F\n",temp,Fahrenheit (temp));
 }
 
 void printFilaFahrenheit(int temp){
-    printf ("%14d °F = %5.1f °C \n",temp,GetCelsFromFahr (temp));
+    printf ("%14d °F = %5.1f °C \n",temp,Celsius (temp));
 }

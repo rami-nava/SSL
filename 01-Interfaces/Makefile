@@ -4,7 +4,6 @@ run: TablasDeConversion
 test: ConversionTest
 	./ConversionTest
 
-	
 TablasDeConversion: TablasDeConversion.o Conversion.o 
 	gcc TablasDeConversion.o Conversion.o -o TablasDeConversion
 
@@ -19,8 +18,7 @@ ConversionTest: ConversionTest.o Conversion.o
 
 ConversionTest.o: ConversionTest.c Conversion.h
 	gcc -c ConversionTest.c -std=c18 -o ConversionTest.o
-	
-	
+
 clean:
 	rm TablasDeConversion
 	rm TablasDeConversion.o
