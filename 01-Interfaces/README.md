@@ -21,14 +21,6 @@ Compilador:
 
     • Standar de C utilizado: c18 (aclarado en el makefile)
 
-    • Se compilo mediante makefile
-
-Compilador:
-
-    • Version de compilador utilizada: gcc 11.2.0
-
-    • Standar de C utilizado: c18 (aclarado en el makefile)
-
     • Se compilo mediante makefile:
          • Comandos a ejecutar:
              • make : para crear y correr el ejecutable de TablasDeConversion (para ejecutarTablasDeConversion2 deberia modificarse el makefile o hacerlo desde la terminal)
