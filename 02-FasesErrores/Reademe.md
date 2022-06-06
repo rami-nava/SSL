@@ -117,16 +117,20 @@ Comandos utilizados: ./helloX
        Resultado: "La respuesta es 42"
 
     b) A pesar de poseer warnings como en casos anteriores (por no incluir a stdio.h, esto no afecta la ejecucion ya que estas se ecuentran pre incluidas en la computadora)
+    
 hello7.c: In function 'main':
 hello7.c:3:5: warning: implicit declaration of function 'printf' [-Wimplicit-function-declaration]
     3 |     printf("La respuesta es %d\n", i);
       |     ^~~~~~
+      
 hello7.c:1:1: note: include '<stdio.h>' or provide a declaration of 'printf'
   +++ |+#include <stdio.h>
     1 | int main(void){
+    
 hello7.c:3:5: warning: incompatible implicit declaration of built-in function 'printf' [-Wbuiltin-declaration-mismatch]
     3 |     printf("La respuesta es %d\n", i);
       |     ^~~~~~
+      
 hello7.c:3:5: note: include '<stdio.h>' or provide a declaration of 'printf'
 
        Ademas, funciona porque cumple con todas las correcciones que se realizaron sobre las variantes del codigo anteriores. La funcion main esta encerrada por ambas llaves, 
