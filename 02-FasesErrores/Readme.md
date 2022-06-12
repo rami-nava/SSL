@@ -48,7 +48,7 @@ No es parte de la semantica pero: "s" es una cadena formada por caracteres comun
                                            prototipos de funciones y estructuras, en el caso de hello3.i no ocurre esto. 
 
     Diferencias entre hello3.c y hello3.i: En hello3.i se encuentra el mismo texto que en hello3.c pero ademas hay unas 
-                                           lineas extras que contienen informacion para el compilador. Para que despues 
+                                           lineas extras que contienen informacion para el compilado para que despues 
                                            genere mejores diagnosticos. Si agregamos al final del comando (-p), estas 
                                            primeras lineas con numerales no se imprimen, y hello3.i seria identico a hello3.c
                                            
@@ -212,4 +212,132 @@ se desea imprimir) en printf.
 En conclusion, el programa funciona, a pesar de utilizar declaraciones implicitas, sin embargo, aunque no haga falta 
 declararlas previamente para utilizarlas en C, es una buena practica para evitar potenciales errores al utilizarlas.
 
+------------------------------------------------------------------------------------------------------------------------------
+6. Compilacion Separada: Contratos y Modulos
+
+funcion wrapper: en este caso existe una declaracion y una definicion de la funcin prontf. Esta es una funcion wrapper,
+                 su unica funcion es llamar a la ya existente funcion printf y ejecutarla con los mismos parametros.
+
+  a) Se escriben studio1.c y hello8.c
+
+  b) Se genera el ejecutable a partir de las 2 unidades de traduccion utilizando el siguiente comando:
+     gcc hello8.c studio1.c -o hello8
+     Se obtiene como resultado el archivo ejecutable: hello8
+
+     Hay varios warnings al hacer esto:
+
+    hello8.c: In function 'main':
+
+    hello8.c:3:2: warning: implicit declaration of function 'prontf' [-Wimplicit-function-declaration]
+       3 |  prontf("La respuesta es %d\n", i);
+         |  ^~~~~~
+
+    studio1.c: In function 'prontf':
+
+    studio1.c:2:2: warning: implicit declaration of function 'printf' [-Wimplicit-function-declaration]
+       2 |  printf("La respuesta es %d\n", i);
+         |  ^~~~~~
+
+    studio1.c:1:1: note: include '<stdio.h>' or provide a declaration of 'printf'
+     +++ |+#include <stdio.h>
+       1 | void prontf(const char* s, int i){
+
+    studio1.c:2:2: warning: incompatible implicit declaration of built-in function 'printf' [-Wbuiltin-declaration-mismatch]
+       2 |  printf("La respuesta es %d\n", i);
+         |  ^~~~~~
+
+    studio1.c:2:2: note: include '<stdio.h>' or provide a declaration of 'printf'
+
+
+     Como se puede ver, hay varios warnings, la mayoria en studio.c. Sin embargo, hay un warning con respecto a hello8.c,
+     este esta diciendo que como ocurrio en hello7.c, se esta declarando una funcion de manera implicita, en este caso,
+     dicha funcion es prontf. Sin embargo, no se detiene la ejecucion ya que en la otra unidad de traduccion se encuentra
+     definida prontf. 
+
+     Ademas, en studio1.c, esto tambien ocurre, ya que no se incluye declaracion para la funcion printf. Por lo tanto, 
+     en otro warning, el compilador recomienda incluir la biblioteca estandar mediante "include <stdio.h>" o declararla
+     en el mismo codigo. Y al igual que en hello7.c, el compilador esta informando que el uso que se le esta dando a
+     printf, no es compatible con el que ya viene incluido en el compilador.
+
+     Sin embargo, a pesar de la presencia de todos estos warnings, no se evita que se logre crear el ejecutable y 
+     mismo ejecutarlo. Finalmente, se obtiene la respuesta esperada:
+
+     "La respuesta es 42"
+
+  c) Se crea el archivo hello8Parametros.c que invoca a la funcion prontf con menos o mas parametros que con los que se la declaro.
+     En este caso, no se le incluye en la invocacion, el parametro i. 
+
+     Al crear el ejecutable: gcc hello8Parametros.c studio1.c -o hello8
+
+     Se obtienen los siguientes warnings:
+
+
+    hello8Parametros.c: In function 'main':
+
+    hello8Parametros.c:3:2: warning: implicit declaration of function 'prontf' [-Wimplicit-function-declaration]
+       3 |  prontf("La respuesta es %d\n");
+         |  ^~~~~~
+
+    studio1.c: In function 'prontf':
+
+    studio1.c:2:2: warning: implicit declaration of function 'printf' [-Wimplicit-function-declaration]
+       2 |  printf("La respuesta es %d\n", i);
+         |  ^~~~~~
+
+    studio1.c:1:1: note: include '<stdio.h>' or provide a declaration of 'printf'
+     +++ |+#include <stdio.h>
+       1 | void prontf(const char* s, int i){
+
+    studio1.c:2:2: warning: incompatible implicit declaration of built-in function 'printf' [-Wbuiltin-declaration-mismatch]
+       2 |  printf("La respuesta es %d\n", i);
+         |  ^~~~~~
+
+    studio1.c:2:2: note: include '<stdio.h>' or provide a declaration of 'printf'
+
+     Se obtienen los mismos warnings que en el caso anterior. 
+
+     Se logra crear el ejecutable, y al ejecutarlo se obtiene:
+
+     "La respuesta es 1842165120"
+
+     No se esta respetando el contrato con prontf, por lo tanto, tampoco se va a respetar el contrato con printf (ya que 
+     prontf no recibio el parametro i, tampoco va a poder pasarselo a printf). Entonces, printf hace lo que quiere y 
+     devuelve cualquier cosa. 
+
+     Es mas, si no le incluimos ningun parametro a la invocacion de prontf, aun asi se logra crear el ejecutable y hello8 
+     devuelve:
+
+     "La respuesta es 1806235008", esto se debe a que en printf, la cadena de chars en "la respuesta es " no es un parametro. 
+
+     Si agregamos parametros de mas, tampoco genera ningun problema. 
+
+     En conclusion, sin importar que parametros utilizemos en la invocacion, se logra crear el ejecutable, pero la respuesta
+     puede no ser la esperada. 
+
+  d)
+
+    i) Se escribe el contrato studio.h
+    
+    ii) Se escribe hello99.c (Se utiilzo de nombre hello99.c en lugar de hello9.c, ya que hello9.c en visual studio code, 
+        me lo tomaba como un archivo de C++ y me daba error al usar printf).
+
+    iii) Se escribe studio2.c
+
+    iv) Mediante el comando: gcc hello99.c studio2.c -o hello99.
+
+        Se obtiene el ejecutabel hello99 sin ningun warning o error.
+
+        Al ejecutarlo se obtiene la respuesta esperada: "La respuesta es 42" .
+
+        Se crea el ejecutable de hello99.c y no se recibe ningun warning ni ningun error. Esto se debe a que a diferencia 
+        del caso anterior en el que en hello8.c no se incluia una declaracion para prontf, en hello99.c, esto no ocurre. 
+        Prontf esta declarada en studio.h, y esta biblioteca se esta incluyendo en hello99.c mediante un include. Ademas,
+        en studio2.c a diferencia de en studio1.c, printf no esta declarada implicitamente, sino que se encuentra declarada 
+        en la biblioteca standar y esta se encuentra incluida en el codigo. 
+
+        En conclusion: Al incluir contratos en el cliente (hello99.c) y en el proveedor (studio2.c), se evitan los warnings 
+        relacionados a falta de declaraciones (osea al uso de declaraciones implicitas), que no "rompian" el codigo, pero 
+        que podian llegar a causar problemas. Es decir, a pesar de no haber declarado las funciones en los respectivos codigos, 
+        al inlcuir las biblitecas correspiendentesen donde ya si se encuentran declaradas, el compilador sabe que formate debe 
+        tener cada funcion y cuantos y de que tipo deben ser los parametros que reciba. 
 ------------------------------------------------------------------------------------------------------------------------------
