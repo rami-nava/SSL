@@ -136,6 +136,10 @@ Resultados: helloX
 No se puede vincular hello4.o. Esto se debe a que prontf no se encuentra declarada ni definida en la biblioteca 
 standar ni en el codigo fuente. Por lo tanto, no se puede obtener el archivo ejecutable de hello4.c 
 
+En conclusion: el uso de funciones declaradas implicitamente no es una buena practica. Ya que es posible preprocesar,
+compilar y ensamblar el codigo, pero si al vincular el archivo, no se posee una declaracion para dicha funcion, no es posible 
+crear el ejecutable. Esto podria evitarse vinculandolo con otro archivo en el cual se posea una declaracion pra dicha funcion. 
+
   b) Se corrige hello4.c (cambiando el prontf por un printf) y se obtiene hello5.c y se vincula con la biblioteca standar 
      para obtener hello5 (ejecutable)
 
@@ -268,6 +272,9 @@ funcion wrapper: en este caso existe una declaracion y una definicion de la func
      mismo ejecutarlo. Finalmente, se obtiene la respuesta esperada:
 
      "La respuesta es 42"
+     
+     A diferencia de como ocurrio con hello4, en este caso al vincular el archivo hello8.c con studio1.c (donde se encuentra declarada
+     prontf), es posible crear el ejecutable. 
 
   c) Se crea el archivo hello8Parametros.c que invoca a la funcion prontf con menos o mas parametros que con los que se la declaro.
      En este caso, no se le incluye en la invocacion, el parametro i. 
