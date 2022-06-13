@@ -260,21 +260,21 @@ funcion wrapper: en este caso existe una declaracion y una definicion de la func
 
      Como se puede ver, hay varios warnings, la mayoria en studio.c. Sin embargo, hay un warning con respecto a hello8.c,
      este esta diciendo que como ocurrio en hello7.c, se esta declarando una funcion de manera implicita, en este caso,
-     dicha funcion es prontf. Sin embargo, no se detiene la ejecucion ya que en la otra unidad de traduccion se encuentra
-     definida prontf. 
-
+     dicha funcion es prontf. 
+     
      Ademas, en studio1.c, esto tambien ocurre, ya que no se incluye declaracion para la funcion printf. Por lo tanto, 
      en otro warning, el compilador recomienda incluir la biblioteca estandar mediante "include <stdio.h>" o declararla
      en el mismo codigo. Y al igual que en hello7.c, el compilador esta informando que el uso que se le esta dando a
      printf, no es compatible con el que ya viene incluido en el compilador.
 
      Sin embargo, a pesar de la presencia de todos estos warnings, no se evita que se logre crear el ejecutable y 
-     mismo ejecutarlo. Finalmente, se obtiene la respuesta esperada:
+     mismo ejecutarlo. Esto se debe a que los warnings surgen en el proceso de compilacion y ensamblado. A pesar de esto, es
+     posible crear el ejecutable ya que al vincular se utilizan 2 archivos, el archivo objeto de hello8.c y studio1.c. Es en este
+     ultimo donde se encuentra la definicion de la funcion prontf. Finalmente, se obtiene la respuesta esperada:
 
      "La respuesta es 42"
      
-     A diferencia de como ocurrio con hello4, en este caso al vincular el archivo hello8.c con studio1.c (donde se encuentra declarada
-     prontf), es posible crear el ejecutable. 
+     A diferencia de como ocurrio con hello4, en este caso al vincular el archivo hello8.o con studio1.o es posible crear el ejecutable. 
 
   c) Se crea el archivo hello8Parametros.c que invoca a la funcion prontf con menos o mas parametros que con los que se la declaro.
      En este caso, no se le incluye en la invocacion, el parametro i. 
