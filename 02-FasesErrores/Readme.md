@@ -3,9 +3,13 @@ Tareas:
 1) Funcionalidades y opciones del compilador para limitar el inicio y fin de las fases de traduccion
 
 A partir del comando "gcc --help" en la terminal,vemos que algunas de las funcionalidades son:
+
 -> Preprocesar unicamente, sin compilar o ensamblar o vincular -> -E
+
 -> Compilar sin ensamblar o vincular -> -S
+
 -> Compilar y ensamblar, sin vincular -> -c
+
 Esto es muy util para poder comprender que se realiza en cada etapa de traduccion sobre el programa que se quiere compilar
 desde que se comienza hasta que finaliza dicho proceso. 
 
@@ -72,6 +76,7 @@ Resultado: helloX.s
 
    Warning: Se debe a que la funcion prontf no esta declarada, y que probablemente se deba a un error de tipeo 
              al querer tipar printf que esta declarada en la primer linea. El compilador no lo detecta como un error.
+             
    Error: Se debe a que la funcion main no tiene la llave de cerrado de la funcion ("}"). Es un error del tipo sintactico. 
 
 
@@ -90,7 +95,7 @@ Resultado: helloX.s
 En este codigo, hay declaraciones de nivel assembler al principio. Luego arranca main en la linea 10. Luego, al final,
 se incluye informacion para el ensamblador.
 
-En conclusion, este archivo contiene instrucciones para "nuestro" microprocesador en caracteres ASCII, como por ejemplo,
+En conclusion, este archivo contiene instrucciones para "nuestro" procesador en caracteres ASCII, como por ejemplo,
 mover el valor 42 a un determinado registro, preparar la pila, llamar a prontf y mover el puntero de funciones.
 No se puede compilar si aun hay errores presentes en el codigo. Si hay warnings puede que si se pueda compilar como en 
 este caso.
@@ -104,8 +109,7 @@ Resultado: helloX.o
   d) Se obtiene hello4.o, sin ningun error ni warnings. Esto es asi, ya que en este paso no estamos ni preprocesando ni 
      compilando, solo estamos ensamblando, es decir, se esta traduciendo el codigo desde lenguaje assembler a codigo de 
      maquina. Por lo tanto, la etapa en la que el compilador o el preprocesador detectan errores y warnings ya se paso. 
-     Se traduce el archivo.s y se pasa a codigo objeto que esta escrito en lenguaje de maquina.
-
+  
 No tienen representacion con sentido en caracteres ASCII. Hay maneras de visualizarlos, que permiten ver los bytes y 
 las direcciones. 
 
@@ -143,6 +147,7 @@ Comandos utilizados: ./helloX
 
   c) Se ejecuta hello5
      Se obtiene: "La respuesta es 1868281184"
+     
      Este es un error pragmatico, ya que el codigo es ejecutable y no se recibe ningun tipo de error por parte del compilador. 
      Esto se debe a que el error pragmatico, no es un error en cuanto a la escritura del codigo, sino que se debe a su 
      funcionamiento. hello5.c deberia devolver el string: "La respuesta es 42", sin embargo esto no ocurre pero para el 
@@ -206,7 +211,7 @@ Por ultimo, el tercer warning, comenta que a parte de ser una declaracion implic
 que ya se encuentra en el compilador.
 
 Ademas, funciona porque cumple con todas las correcciones que se realizaron sobre las variantes del codigo anteriores. 
-La funcion main esta encerrada por ambas llaves, se usa printf y no prontf y se incluye la variabel i (con el valor que 
+La funcion main esta encerrada por ambas llaves, se usa printf y no prontf y se incluye la variable i (con el valor que 
 se desea imprimir) en printf.
 
 En conclusion, el programa funciona, a pesar de utilizar declaraciones implicitas, sin embargo, aunque no haga falta 
