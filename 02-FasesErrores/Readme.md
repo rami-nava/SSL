@@ -155,11 +155,11 @@ Comandos utilizados: ./helloX
   c) Se ejecuta hello5
      Se obtiene: "La respuesta es 1868281184"
      
-     Este es un error pragmatico, ya que el codigo es ejecutable y no se recibe ningun tipo de error por parte del compilador. 
-     Esto se debe a que el error pragmatico, no es un error en cuanto a la escritura del codigo, sino que se debe a su 
-     funcionamiento. hello5.c deberia devolver el string: "La respuesta es 42", sin embargo esto no ocurre pero para el 
-     compilador esto no representa ningun tipo de error ya que este no sabe que espera printf osea no sabe que uso tiene 
-     que darle a esta funcion. Printf no es parte del lenguaje es parte de la biblioteca standar.
+  Este es un error pragmatico, ya que el codigo es ejecutable y no se recibe ningun tipo de error por parte del compilador. 
+  Esto se debe a que el error pragmatico, no es un error en cuanto a la escritura del codigo, sino que se debe a su 
+  funcionamiento. hello5.c deberia devolver el string: "La respuesta es 42", sin embargo esto no ocurre pero para el 
+  compilador esto no representa ningun tipo de error ya que este no sabe que espera printf osea no sabe que uso tiene 
+  que darle a esta funcion. Printf no es parte del lenguaje es parte de la biblioteca standar.
 
 La causa del error, radica en el printf, donde no se hace referencia al valor que se desea imprimir (aquel guardado 
 en la variable i). Al no respetarse el contratode la funcion printf, se imprime un valor cualquiera, por lo tanto, 
@@ -174,7 +174,7 @@ En conclusion: Al no respetarse el contrato de printf, printf hace lo que quiere
 
   a) Se escribe hello6.c y se verifica que funcione
 
-  Resultado: "La respuesta es 42"
+     Resultado: "La respuesta es 42"
 
   En este caso, la respuesta del programa es esperada, porque estamos diciendole que imprima el valor que previamente 
   guardamos en la variable i, el cual es 42.
