@@ -377,22 +377,21 @@ funcion wrapper: en este caso existe una declaracion y una definicion de la func
 
     i) Se escribe el contrato studio.h
     
-   ii) Se escribe hello99.c (Se utiilzo de nombre hello99.c en lugar de hello9.c, ya que hello9.c en visual studio code, 
-       me lo tomaba como un archivo de C++ y me daba error al usar printf).
+   ii) Se escribe hello9.c.
 
    iii) Se escribe studio2.c
 
-   iv) Mediante el comando: gcc hello99.c studio2.c -o hello99.
+   iv) Mediante el comando: gcc hello9.c studio2.c -o hello9.
 
  Si no se incluye studio2.c, no se encuentra la definicion de prontf y da error. Sin embargo, en este caso se obtiene 
- el ejecutable hello99 sin ningun warning o error.
+ el ejecutable hello9 sin ningun warning o error.
   
  Al ejecutarlo se obtiene la respuesta esperada: 
 
         "La respuesta es 42" .
 
  Esto se debe a que a diferencia del caso anterior en el que en hello8.c no se incluia una declaracion para prontf, 
- en hello99.c, esto no ocurre. Prontf esta declarada en studio.h, y esta biblioteca se esta incluyendo en hello99.c 
+ en hello9.c, esto no ocurre. Prontf esta declarada en studio.h, y esta biblioteca se esta incluyendo en hello9.c 
  mediante un include. Ademas,en studio2.c a diferencia de en studio1.c, printf no esta declarada implicitamente, 
  sino que se encuentra declarada en la biblioteca standar y esta se encuentra incluida en el codigo. 
  
