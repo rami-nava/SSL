@@ -40,7 +40,7 @@ Resultado: helloX.i
 
   c) Se escribe hello3.c (se agrega la declaracion de la funcion printf y se borra el comentario).
 
-  d) En cuanto a la semantida de la primera linea, es una declaracion de una funcion que devuelve un int y espera 
+  d) En cuanto a la semantica de la primera linea, es una declaracion de una funcion que devuelve un int y espera 
      por lo menos 1 argumento ("..." = cantidad variable de argumentos). Al tener un puntero con const, quiere 
      decir que no puede modificarse a lo que esta apuntando. Es un puntero de "solo lectura". Al incluir el restrict, 
      quiere decir que solo este puntero apunta a ese objeto, ninguno mas (sirve para optimizar, no va a haber solapamiento).  
@@ -80,8 +80,8 @@ Resultado: helloX.s
 
    Warning: Se debe a que la funcion prontf no esta declarada, y que probablemente se deba a un error de tipeo 
              al querer tipar printf que esta declarada en la primer linea. El compilador no lo detecta como un error ya que
-             es posible el uso de declaraciones implictas en C, o obtener las definiciones de las funciones en otros archivos 
-             que luego se vinculen.
+             es posible el uso de declaraciones implictas al compilar con GCC, o obtener las definiciones de las funciones 
+             en otros archivos que luego se vinculen.
 
    Error: Se debe a que la funcion main no tiene la llave de cerrado de la funcion ("}"). Es un error del tipo sintactico que 
           detiene la compilacion.
@@ -102,7 +102,7 @@ Resultado: helloX.s
 En este codigo, hay declaraciones de nivel assembler al principio. Luego arranca main en la linea 10 y se detallan los pasos
 para preparar y ejecutar dicha funcion. Luego, al final, se incluye informacion para el ensamblador.
 
-En conclusion, este archivo contiene instrucciones para "nuestro" procesador en caracteres ASCII, como por ejemplo,
+En conclusion, este archivo contiene instrucciones para "nuestro" procesador , como por ejemplo,
 mover el valor 42 a un determinado registro, preparar la pila, llamar a prontf y mover el puntero de funciones.
 No se puede compilar si aun hay errores presentes en el codigo. Si hay warnings puede que si se pueda compilar como en 
 este caso.
@@ -224,7 +224,7 @@ devuelve una cadena y un int). => CARACTERISTICA PROPIA DE C
 
 En este caso se logro compilar y la ejecucion fue exitosa, sin embargo, esto dependera del compilador que se utilize. En este
 caso, al utilizar gcc, el hecho de usar declaraciones implicitas no rompe el codigo, ya que este decide flexibilizarse en 
-lugar de considerarlo como un error. En si, en el estandar de C, no es correcto utilizar declaraciones de funciones implicitas,
+lugar de considerarlo como un error. En si, segun el estandar de C, no es correcto utilizar declaraciones de funciones implicitas,
 sin embargo, al no haber una norma sobre que hacer cuando no se respeta esta medida, gcc decide flexibilizarse, crear el 
 ejecutable (si es posible) y enviar warnings. Si se hubiese compilado utilizando clang, no seria posible crear el ejecutable. 
 
@@ -238,7 +238,7 @@ declaraciones para las funciones.
 6. Compilacion Separada: Contratos y Modulos
 
 funcion wrapper: en este caso existe una declaracion y una definicion de la funcin prontf. Esta es una funcion wrapper,
-                 su unica funcion es llamar a la ya existente funcion printf y ejecutarla con los mismos parametros.
+                 su unica funcion es llamar a la ya existente funcion printf y ejecutarla.
 
   a) Se escriben studio1.c y hello8.c
 
@@ -357,7 +357,7 @@ funcion wrapper: en este caso existe una declaracion y una definicion de la func
 
    El linker recibe los 2 archivos objeto. Se va a poder hacer el llamado a prontf, y en algun momento se van a mandar 3 
    argumentos (se van a apilar) pero luego al ejecutar la funcion, se van a tomar 2 (se desapilan 2) que son los necesarios 
-   para dicha funcion. Por lo tanto, se genera un desbanalance. Estos son temas de implementacion, 
+   para dicha funcion. Por lo tanto, se genera un desbalance. Estos son temas de implementacion, 
    pero en cuanto al codigo --> funciona
 
    En tiempo de ejecucion no hay control de cantidad de parametros, esto se analiza en tiempo de compilacion pero en este 
@@ -375,16 +375,16 @@ funcion wrapper: en este caso existe una declaracion y una definicion de la func
 
   d)
 
-    i) Se escribe el contrato studio.h
+   i) Se escribe el contrato studio.h
     
    ii) Se escribe hello9.c.
 
    iii) Se escribe studio2.c
 
-   iv) Mediante el comando: gcc hello9.c studio2.c -o hello9.
+   iv) Se utiliza el comando: gcc hello9.c studio2.c -o hello9 para obtener el ejecutable de hello9.
 
- Si no se incluye studio2.c, no se encuentra la definicion de prontf y da error. Sin embargo, en este caso se obtiene 
- el ejecutable hello9 sin ningun warning o error.
+ Si no se incluye studio2.c en el comando, no se encontraria la definicion de prontf y daria error. Sin embargo,
+ en este caso se obtiene el ejecutable hello9 sin ningun warning o error.
   
  Al ejecutarlo se obtiene la respuesta esperada: 
 
@@ -408,11 +408,13 @@ Credito Extra:
 Una biblioteca es una coleccion de archivos objeto. Por lo tanto, contienen declaraciones de estructuras y funciones. 
 Suelen guardarse como archivos.rar o archivos.zip donde contienen generalmente varios archivos.o (tiene codigo compilado). 
 Es decir, contienen codigo ensamblado de funciones. Por lo tanto, el uso de bibliotecas, permite hacer uso de las 
-funcionalidades que se encuentran dentro de la misma, sin la necesidad de reescribirlas. 
+funcionalidades que se encuentran dentro de la misma, sin la necesidad de reescribirlas. Al vincular el archivo que se desea
+compilar con la biblioteca, se pueden resolver los llamados a funciones que se encuentren definidas en la misma. 
 
 A la par de las bibliotecas, existen los archivos.h, estos son contratos que al incluirlos, se evita reescribir los prototipos 
 de las funciones que se encuentran dentro del contrato. Es decir, contienen la informacion acerca de que tipo de dato devuelve 
-cada funcion, y cuantos y de que tipo son los parametros que necesita, si es que necesita.
+cada funcion, y cuantos y de que tipo son los parametros que necesita, si es que necesita. El preprocesador reemplaza el include
+por las declaraciones desarrolladas en dicho contrato.
 
 En base a esto, se puede decir que una biblioteca es un "material de referencia que uno puede utilizar".
 
